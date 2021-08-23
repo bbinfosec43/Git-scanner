@@ -4,11 +4,11 @@ FROM golang:1.10.3-alpine3.7 AS build-env
 RUN apk add --no-cache --upgrade git openssh-client ca-certificates
 RUN go get -u github.com/golang/dep/cmd/dep
 
-WORKDIR /go/src/github.com/anshumanbh/git-all-secrets
+WORKDIR /go/src/github.com/bbinfosec43/Git-scanner
 COPY Gopkg.toml Gopkg.lock ./
 RUN dep ensure -vendor-only -v
 COPY main.go ./
-RUN go build -v -o /go/bin/git-all-secrets
+RUN go build -v -o /go/bin/Git-scanner
 
 # Final container
 FROM node:9.11.2-alpine
@@ -49,4 +49,4 @@ RUN npm install --no-optional && \
 
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 WORKDIR /root/
-ENTRYPOINT [ "git-Scanner" ]
+ENTRYPOINT [ "git-all-secrets" ]
